@@ -1,6 +1,4 @@
-// ================================
-// IMPORTS FIREBASE
-// ================================
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { 
   getFirestore, 
@@ -11,55 +9,24 @@ import {
   addDoc 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-
-// ================================
-// DETECTAR SI HAY VARIABLES DE ENTORNO
-// ================================
-const hasEnv = Boolean(import.meta.env?.VITE_FIREBASE_API_KEY);
-
-// ================================
-// CONFIG FIREBASE REAL (TUYA)
-// ================================
-const firebaseConfigReal = {
-  apiKey: "AIzaSyB3Kpu51ZiqXJ5_PC25h_VP9MUaILeyJzY",
-  authDomain: "chitercaps.firebaseapp.com",
-  projectId: "chitercaps",
-  storageBucket: "chitercaps.firebasestorage.app",
-  messagingSenderId: "548711179338",
-  appId: "1:548711179338:web:d0f962859257332c3f72b3"
+const firebaseConfigEnv = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// ================================
-// CONFIG FIREBASE POR ENV (OPCIONAL)
-// ================================
-let firebaseConfigEnv = null;
+const hasEnv = Boolean(import.meta.env?.VITE_FIREBASE_API_KEY);
 
-if (hasEnv) {
-  firebaseConfigEnv = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  };
-}
-
-// ================================
-// ELEGIR CONFIG ACTUAL
-// ================================
 const firebaseConfig = hasEnv ? firebaseConfigEnv : firebaseConfigReal;
 
-// ================================
-// INICIALIZAR FIREBASE + FIRESTORE
-// ================================
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
 
-// ================================
-// MOCK DATA (solo por fallback)
-// ================================
+
 const MOCK_PRODUCTS = [
   { id: '1', title: 'Gorra New Era', description: 'Visera color azul', price: 6500, image: 'https://acdn-us.mitiendanube.com/stores/001/015/914/products/new-era-la-dodgers-59fifty-fitted-cap-blue1-c023a319653e17767116781356065075-480-0.webp' },
   { id: '2', title: 'Gorra LA', description: 'Visera color roja', price: 7200, image: 'https://www.newera.com.ar/cdn/shop/files/11591141_59FIFTY_MLBBASICFITTED_LOSDOD_SCA_3QL.jpg?v=1761767013' },
@@ -68,9 +35,6 @@ const MOCK_PRODUCTS = [
 ];
 
 
-// ================================
-// OBTENER TODOS LOS PRODUCTOS
-// ================================
 export async function fetchProducts() {
   try {
     const colRef = collection(db, "products");
@@ -92,9 +56,7 @@ export async function fetchProducts() {
 }
 
 
-// ================================
-// OBTENER PRODUCTO POR ID
-// ================================
+
 export async function fetchProductById(id) {
   try {
     const ref = doc(db, "products", id);
@@ -110,9 +72,6 @@ export async function fetchProductById(id) {
 }
 
 
-// ================================
-// GUARDAR ORDEN (COMPRA)
-// ================================
 export async function saveOrder(order) {
   try {
     const ordersCol = collection(db, "orders");
@@ -125,5 +84,4 @@ export async function saveOrder(order) {
 }
 
 
-// ================================
 export default db;

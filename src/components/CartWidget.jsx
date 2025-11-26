@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CartWidget({ count }) {
+export default function CartWidget({ count }) 
   return (
     <span className="d-inline-flex align-items-center">
       <img src="/cart-icon.svg" alt="cart" style={{ width: 22, height: 22, marginRight: 6 }} />
