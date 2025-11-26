@@ -24,3 +24,5 @@ Funciones principales:
 ✔ Componente Navbar con buscador
 ✔ Rutas dinámicas /product/:id
 ✔ Diseño responsive optimizado para mobile
+
+Aclaracion 😣: No había visto que tenia que colocar ItemListContainer y ItemDetailContainer de nombres y puse otro nombre jejej
